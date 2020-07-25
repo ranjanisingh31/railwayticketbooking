@@ -11,7 +11,7 @@ export class SocketService {
   public availableSeats;
   constructor() {
 
-    this.socket = io("http://localhost:3000");
+    this.socket = io("https://railway-ticket-reservation.herokuapp.com");
     this.socket.on('connect', function () {
       console.log('connected to server');
     });
@@ -35,9 +35,6 @@ export class SocketService {
       }
     });
 
-    this.socket.on("bookingSuccess", () => {
-      alert("Booking Confirmed!!! ");
-    });
 
   }
 

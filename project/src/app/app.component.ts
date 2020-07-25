@@ -32,10 +32,9 @@ export class AppComponent implements OnInit {
     this.socketService.socket.on("bookingSuccess", () => {
       alert("Booking Confirmed!!! ");
       this.toggle = true;
-      console.log("seats", this.availableSeats, this.reservedSeats);
+
       this.bookedSeats = this.seatBookingForm.value.numberOfSeats;
       this.alreadyRegistered = this.reservedSeats - this.bookedSeats;
-      console.log("ar", this.alreadyRegistered, this.bookedSeats);
     });
 
   }
@@ -47,7 +46,7 @@ export class AppComponent implements OnInit {
     this.socketService.socket.on("totalReservedSeats", (data) => {
       this.reservedSeats = data;
       this.availableSeats = 80 - data;
-      console.log(this.availableSeats, this.reservedSeats);
+
 
     });
 
