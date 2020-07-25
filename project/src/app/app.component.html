@@ -1,0 +1,57 @@
+<div>
+  <h1>Railway Ticket Booking</h1>
+
+  <div class="panel">
+
+    <form [formGroup]="seatBookingForm">
+      <mat-form-field>
+        <mat-label>Book Seats </mat-label>
+        <input matInput type="number" formControlName="numberOfSeats" min=1 max=7 />
+      </mat-form-field>
+      <!-- ERROR HANDLE -->
+      <div *ngIf="seatBookingForm.get('numberOfSeats').invalid && seatBookingForm.get('numberOfSeats').touched">
+        <small class="text-danger" *ngIf="seatBookingForm.get('numberOfSeats').errors?.required">
+          Select number of seats to be booked.</small>
+        <small class="text-danger" *ngIf="seatBookingForm.get('numberOfSeats').errors?.pattern">Can only select 1-7
+          seats</small>
+      </div>
+
+      <br />
+      <button mat-stroked-button class="button" [disabled]="!seatBookingForm.valid"
+        (click)="onSubmit()">Submit</button><br /><br />
+      <span style="font-weight:500">Available Seats: <span style="font-size: 17px;color: green;">
+          {{availableSeats}}</span>
+        Reserved Seats: <span style="font-size: 17px;color: darkblue;">{{reservedSeats}}</span></span>
+    </form>
+
+    <!-- SHOW AVAILABLE SEATS -->
+    <div class="section" *ngIf="toggle===true">
+
+      <span class="display" style="background: linear-gradient(45deg, skyblue, transparent); top:150px;">Reserved
+        Seats</span><br />
+      <span class="display" style="background: linear-gradient(45deg, orange, transparent);top:250px">Booked
+        Seats</span><br />
+      <span class="display" style="background: linear-gradient(45deg, cornsilk, transparent);top:350px">Unreserved
+        Seats</span>
+
+      <mat-grid-list cols=7 rowHeight="50px" style="width: 585px;">
+        <mat-grid-tile *ngFor="let i of [].constructor(alreadyRegistered),let x=index"
+          style="background:linear-gradient(45deg, skyblue, transparent) ;">
+          <span>{{x+1}}</span>
+          <img width="40px" height="40px" src="/assets/img/chair.png" alt="img" style="margin-right:15px;">
+        </mat-grid-tile>
+        <mat-grid-tile *ngFor="let j of [].constructor(bookedSeats),let y=index"
+          style="background:linear-gradient(45deg, orange, transparent) ;">
+          <span>{{alreadyRegistered+y+1}}</span>
+          <img width="40px" height="40px" src="/assets/img/chair.png" alt="img" style="margin-right:15px;">
+        </mat-grid-tile>
+        <mat-grid-tile *ngFor="let k of [].constructor(80-reservedSeats),let z=index"
+          style="background:linear-gradient(45deg,cornsilk, transparent) ;">
+          <span>{{reservedSeats+z+1}}</span>
+          <img width="40px" height="40px" src="/assets/img/chair.png" alt="img" style="margin-right:15px;">
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>
